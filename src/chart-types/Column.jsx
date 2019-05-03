@@ -11,6 +11,24 @@ class Column extends Component {
         dataLabels: {
           enabled: false
         },
+        chart: {
+          animations: {
+              enabled: true,
+              easing: 'easeinout',
+              speed: 800,
+              animateGradually: {
+                  enabled: true,
+                  delay: 150
+              },
+              dynamicAnimation: {
+                  enabled: true,
+                  speed: 350
+              }
+          },
+          toolbar: {
+            show: false
+          }
+        },
         xaxis: {
           categories: ['Injustice 2', 'Ragnarok Online', 'Counter Strike', 'The Sherlock Holmes', 'Battlezone God Edition', 'Adrift', 'Far Cry Primal', 'Planet Coaster'],
           labels: {
@@ -22,6 +40,18 @@ class Column extends Component {
           title: {
             text: 'Day(s)'
           }
+        },
+        title: {
+          text: 'Time Needed to Crack a Game',
+          align: 'center',
+          margin: 10,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize:  '20px',
+            color:  '#263238'
+          },
         },
         tooltip: {
           followCursor: true,
@@ -47,10 +77,10 @@ class Column extends Component {
         fill: {
           type: 'gradient',
           gradient: {
+            // colors: ['#41B883', '#E46651', '#E46651'],
             shade: 'light',
             type: "horizontal",
             shadeIntensity: 0.25,
-            gradientToColors: undefined,
             inverseColors: true,
             opacityFrom: 0.85,
             opacityTo: 0.85,
@@ -61,12 +91,39 @@ class Column extends Component {
           row: {
             colors: ['#fff', '#f2f2f2']
           }
+        },
+        legend: {
+          show: true,
+          showForSingleSeries: true,
+          position: 'top',
+          horizontalAlign: 'right',
+          markers: {
+            width: 10,
+            height: 10,
+            strokeWidth: 0,
+            strokeColor: '#41B883',
+            radius: 5,
+            offsetX: 0,
+            offsetY: 0
+          },
+         
+          onItemClick: {
+            toggleDataSeries: false
+          },
+        },
+        plotOptions: {
+          bar: {
+              distributed: false,
+              columnWidth: '50%',
+          }
         }
       },
-      series: [{
-        name: 'time needed to crack',
-        data: [30, 40, 25, 50, 49, 21, 70, 51]
-      }],
+      series: [
+        {
+          name: 'Denuvo',
+          data: [30, 40, 25, 50, 49, 21, 70, 51]
+        }
+    ],
     }
   }
 

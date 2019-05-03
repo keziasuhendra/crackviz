@@ -25,7 +25,8 @@ class App extends Component {
   render () {
     return (
       <div className="app">
-        <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
+        <br/><br/>
+        {/* <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
           <option value="line" >Line</option>
           <option value="area" >Area</option>
           <option value="bar" >Bar</option>
@@ -33,7 +34,7 @@ class App extends Component {
           <option value="radialbar" >RadialBar</option>
           <option value="donut" >Donut</option>
           <option value="updateExample" >Chart Update Example</option>
-        </select>
+        </select> */}
 
         { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
         { this.state.selectedChart === 'bar' ? (<Bar></Bar>) : null}
