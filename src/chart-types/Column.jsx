@@ -131,7 +131,7 @@ class Column extends Component {
 
     return (
       <div className="column">
-        <Chart options={this.state.options} series={this.state.series} type="bar" width="500" />
+        <Chart options={this.state.options} series={this.state.series} type="bar" width="800" />
       </div>
     );
   }
