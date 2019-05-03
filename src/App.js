@@ -52,17 +52,9 @@ class App extends Component {
         </Nav>
       </Navbar>
         <br/><br/>
-        {/* <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
-          <option value="line" >Line</option>
-          <option value="area" >Area</option>
-          <option value="bar" >Bar</option>
-          <option value="column" >Column</option>
-          <option value="radialbar" >RadialBar</option>
-          <option value="donut" >Donut</option>
-          <option value="updateExample" >Chart Update Example</option>
-        </select> */}
 
-        <div className="d-flex flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center">
+        <div className="d-inline-flex flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
+          <div>
           { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
           { this.state.selectedChart === 'bar' ? (<Bar></Bar>) : null}
           { this.state.selectedChart === 'line' ? (<Line></Line>) : null}
@@ -70,6 +62,53 @@ class App extends Component {
           { this.state.selectedChart === 'radialbar' ? (<RadialBar></RadialBar>) : null}
           { this.state.selectedChart === 'donut' ? (<Donut></Donut>) : null}
           { this.state.selectedChart === 'updateExample' ? (<ChartUpdate></ChartUpdate>) : null}
+          </div>
+          <div className="d-flex-column card">
+            <div class="card-body">
+              <div className="form-group">
+                <label for="lang">
+                  Sort by
+                </label><br/>
+                <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
+                  <option value="line" >Line</option>
+                  <option value="area" >Area</option>
+                  <option value="bar" >Bar</option>
+                  <option value="column" >Column</option>
+                  <option value="radialbar" >RadialBar</option>
+                  <option value="donut" >Donut</option>
+                  <option value="updateExample" >Chart Update Example</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label for="lang">
+                  Data to Show
+                </label><br/>
+                <select id="lang">
+                  <option value="50" >50</option>
+                  <option value="100" >100</option>
+                  <option value="all" >All</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label for="lang">
+                  DRM
+                </label><br/>
+                <select id="lang">
+                  <option value="denuvo" >Denuvo</option>
+                  <option value="steam" >Steam</option>
+                </select>
+              </div>
+                
+                <hr/>
+                <h3 class="card-title" align="center">Average Time</h3>
+                <h1 class="card-text" align="center">20 Day(s)</h1>
+                <br/>
+                <h5 class="card-text" align="center">Games protected by:</h5>
+                <center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></center>
+            </div>
+          </div>
         </div>
       </div>
     )

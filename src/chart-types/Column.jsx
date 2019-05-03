@@ -30,26 +30,38 @@ class Column extends Component {
           }
         },
         xaxis: {
+          type: 'category',
           categories: ['Injustice 2', 'Ragnarok Online', 'Counter Strike', 'The Sherlock Holmes', 'Battlezone God Edition', 'Adrift', 'Far Cry Primal', 'Planet Coaster'],
           labels: {
             rotate: -45,
-            rotateAlways: true
+            rotateAlways: true,
+            maxHeight: 300,
+            style: {
+              fontSize: '17px'
+            }
           }
         },
         yaxis: {
           title: {
-            text: 'Day(s)'
+            text: 'Day(s)',
+            style: {
+              fontSize: '17px'
+            }
+          },
+          labels: {
+            style: {
+              fontSize: '17px'
+            }
           }
         },
         title: {
           text: 'Time Needed to Crack a Game',
           align: 'center',
-          margin: 10,
           offsetX: 0,
           offsetY: 0,
           floating: false,
           style: {
-            fontSize:  '20px',
+            fontSize:  '40px',
             color:  '#263238'
           },
         },
@@ -75,17 +87,17 @@ class Column extends Component {
           }]
         },
         fill: {
-          type: 'gradient',
-          gradient: {
-            // colors: ['#41B883', '#E46651', '#E46651'],
-            shade: 'light',
-            type: "horizontal",
-            shadeIntensity: 0.25,
-            inverseColors: true,
-            opacityFrom: 0.85,
-            opacityTo: 0.85,
-            stops: [50, 0, 100]
-          },
+          type: 'solid',
+          // gradient: {
+          //   // colors: ['#41B883', '#E46651', '#E46651'],
+          //   shade: 'light',
+          //   type: "horizontal",
+          //   shadeIntensity: 0.25,
+          //   inverseColors: true,
+          //   opacityFrom: 0.85,
+          //   opacityTo: 0.85,
+          //   stops: [50, 0, 100]
+          // },
         },
         grid: {
           row: {
@@ -95,8 +107,9 @@ class Column extends Component {
         legend: {
           show: true,
           showForSingleSeries: true,
-          position: 'top',
-          horizontalAlign: 'right',
+          position: 'bottom',
+          horizontalAlign: 'center',
+          fontSize: '17px',
           markers: {
             width: 10,
             height: 10,
@@ -106,7 +119,10 @@ class Column extends Component {
             offsetX: 0,
             offsetY: 0
           },
-         
+          itemMargin: {
+            horizontal: 20,
+            vertical: 15
+          },
           onItemClick: {
             toggleDataSeries: false
           },
