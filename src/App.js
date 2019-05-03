@@ -51,8 +51,7 @@ class App extends Component {
           </NavItem>
         </Nav>
       </Navbar>
-        <br/><br/>
-
+      <div class="container-fluid">
         <div className="d-inline-flex flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
           <div>
           { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
@@ -111,6 +110,7 @@ class App extends Component {
           </div>
         </div>
       </div>
+    </div>
     )
   }
 }
