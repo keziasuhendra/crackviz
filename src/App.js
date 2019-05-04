@@ -6,9 +6,13 @@ import Line from './chart-types/Line'
 import Donut from './chart-types/Donut'
 import RadialBar from './chart-types/RadialBar'
 import ChartUpdate from './ChartUpdate'
+import DataSource from './data/data'
+
 import {
   Navbar, NavbarBrand, Nav, NavItem, NavLink
 } from 'reactstrap';
+
+var data = new DataSource();
 
 class App extends Component {
   constructor (props) {
@@ -19,6 +23,8 @@ class App extends Component {
     this.state = {
       selectedChart: 'column'
     }
+
+    
   }
 
   changeChart (e) {
@@ -26,6 +32,8 @@ class App extends Component {
   }
 
   render () {
+    console.log(data.getAll())
+
     return (
       <div className="app">
       <Navbar color="dark" light expand="md">
@@ -51,7 +59,7 @@ class App extends Component {
           </NavItem>
         </Nav>
       </Navbar>
-      <div class="container-fluid">
+      <div className="container-fluid">
         <div className="d-inline-flex flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
           <div>
           { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
@@ -63,9 +71,9 @@ class App extends Component {
           { this.state.selectedChart === 'updateExample' ? (<ChartUpdate></ChartUpdate>) : null}
           </div>
           <div className="d-flex-column card">
-            <div class="card-body">
+            <div className="card-body">
               <div className="form-group">
-                <label for="lang">
+                <label htmlFor="lang">
                   Sort by
                 </label><br/>
                 <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
@@ -80,7 +88,7 @@ class App extends Component {
               </div>
 
               <div className="form-group">
-                <label for="lang">
+                <label htmlFor="lang">
                   Data to Show
                 </label><br/>
                 <select id="lang">
@@ -91,7 +99,7 @@ class App extends Component {
               </div>
 
               <div className="form-group">
-                <label for="lang">
+                <label htmlFor="lang">
                   DRM
                 </label><br/>
                 <select id="lang">
@@ -101,10 +109,10 @@ class App extends Component {
               </div>
                 
                 <hr/>
-                <h3 class="card-title" align="center">Average Time</h3>
-                <h1 class="card-text" align="center">20 Day(s)</h1>
+                <h3 className="card-title" align="center">Average Time</h3>
+                <h1 className="card-text" align="center">20 Day(s)</h1>
                 <br/>
-                <h5 class="card-text" align="center">Games protected by:</h5>
+                <h5 className="card-text" align="center">Games protected by:</h5>
                 <center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></center>
             </div>
           </div>
