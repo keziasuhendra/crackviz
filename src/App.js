@@ -6,7 +6,7 @@ import Line from './chart-types/Line'
 import Donut from './chart-types/Donut'
 import RadialBar from './chart-types/RadialBar'
 import ChartUpdate from './ChartUpdate'
-import DataSource from './data/data'
+import DataSource from './data/datasource'
 
 import {
   Navbar, NavbarBrand, Nav, NavItem, NavLink
@@ -23,8 +23,6 @@ class App extends Component {
     this.state = {
       selectedChart: 'column'
     }
-
-    
   }
 
   changeChart (e) {
@@ -32,8 +30,14 @@ class App extends Component {
   }
 
   render () {
-    console.log(data.getAll())
-
+    //contoh pengambilan data
+    if(data.ready === true) {
+      //data.getSeries(max, filters, sortBy, asc)
+      console.log(data.getSeries(0, {drm: "denuvo"}, "y", false))
+    } else {
+      console.log("not ready")
+    }
+    
     return (
       <div className="app">
       <Navbar color="dark" light expand="md">
