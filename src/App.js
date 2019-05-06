@@ -21,8 +21,9 @@ class App extends Component {
     this.changeChart = this.changeChart.bind(this)
 
     this.state = {
-      selectedChart: 'column'
+      selectedChart: 'bar'
     }
+
   }
 
   changeChart (e) {
@@ -31,12 +32,14 @@ class App extends Component {
 
   render () {
     //contoh pengambilan data
-    if(data.ready === true) {
-      //data.getSeries(max, filters, sortBy, asc)
-      console.log(data.getSeries(0, {drm: "denuvo"}, "y", false))
-    } else {
-      console.log("not ready")
-    }
+    // if(data.ready === true) {
+    //   data.getSeries(0, {}, "y", false)
+    //   console.log(data.getSeries(0, {}, "y", false))
+    // } else {
+    //   console.log("not ready")
+    // }
+
+    var dataSeries = data.ready? data.getSeries(50, {drm: "denuvo"}, "y", false) : []
     
     return (
       <div className="app">
@@ -64,18 +67,19 @@ class App extends Component {
         </Nav>
       </Navbar>
       <div className="container-fluid">
-        <div className="d-inline-flex flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
+        <div className="d-flex flex-row flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
           <div>
           { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
           { this.state.selectedChart === 'bar' ? (<Bar></Bar>) : null}
           { this.state.selectedChart === 'line' ? (<Line></Line>) : null}
-          { this.state.selectedChart === 'column' ? (<Column></Column>) : null}
+          { this.state.selectedChart === 'column' ? (<Column data = {dataSeries.series? dataSeries.series[0].data : []}></Column>) : null}
           { this.state.selectedChart === 'radialbar' ? (<RadialBar></RadialBar>) : null}
           { this.state.selectedChart === 'donut' ? (<Donut></Donut>) : null}
           { this.state.selectedChart === 'updateExample' ? (<ChartUpdate></ChartUpdate>) : null}
           </div>
-          <div className="d-flex-column card">
-            <div className="card-body">
+          <div class="p-2"/>
+          <div className="d-flex flex-column justify-content-center align-items-center align-content-center card">
+            <div className="d-flex flex-column justify-content-space-between align-content-space-between card-body">
               <div className="form-group">
                 <label htmlFor="lang">
                   Sort by
@@ -90,7 +94,9 @@ class App extends Component {
                   <option value="updateExample" >Chart Update Example</option>
                 </select>
               </div>
+              </div>
 
+            <div className="d-flex flex-row justify-content-space-between align-content-space-between card-body">
               <div className="form-group">
                 <label htmlFor="lang">
                   Data to Show
@@ -102,6 +108,8 @@ class App extends Component {
                 </select>
               </div>
 
+              <div className="p-2"/>
+
               <div className="form-group">
                 <label htmlFor="lang">
                   DRM
@@ -111,12 +119,15 @@ class App extends Component {
                   <option value="steam" >Steam</option>
                 </select>
               </div>
+
+              </div>
                 
-                <hr/>
+                <div className="card-body">
                 <h3 className="card-title" align="center">Average Time</h3>
                 <h1 className="card-text" align="center">20 Day(s)</h1>
-                <br/>
-                <h5 className="card-text" align="center">Games protected by:</h5>
+                </div>
+                <div className="card-body">
+                <h5 className="card-title" align="center">Games protected by:</h5>
                 <center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></center>
             </div>
           </div>
