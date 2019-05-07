@@ -121,6 +121,10 @@ class App extends Component {
               </div>
 
               </div>
+              <div class="slidecontainer d-flex flex-column justify-content-space-between align-content-space-between card-body">
+                <p align="center">2015 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2016 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2017 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018</p>
+                <input  type="range" min="0" max="3" step="1" class="slider"/>
+              </div>
                 
                 <div className="card-body">
                 <h3 className="card-title" align="center">Average Time</h3>
