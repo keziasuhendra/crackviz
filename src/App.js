@@ -7,6 +7,8 @@ import Donut from './chart-types/Donut'
 import RadialBar from './chart-types/RadialBar'
 import ChartUpdate from './ChartUpdate'
 import DataSource from './data/datasource'
+import { Redirect } from 'react-router-dom'
+import './app.css'
 
 import {
   Navbar, NavbarBrand, Nav, NavItem, NavLink, Row, Col
@@ -15,13 +17,27 @@ import {
 var data = new DataSource();
 
 class App extends Component {
+  state = {
+    redirect: false
+  }
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/'/>
+    }
+  }
+
   constructor (props) {
     super(props)
 
     this.changeChart = this.changeChart.bind(this)
 
     this.state = {
-      selectedChart: 'bar',
+      selectedChart: 'column',
       form: {
         max: 50,
         drm: 'denuvo',
@@ -75,6 +91,7 @@ class App extends Component {
     return (
       <div className="app">
       <Navbar color="dark" light expand="md">
+      {this.renderRedirect()}
         <NavbarBrand href="/">
           <font color="white">
           CrackViz Dashboard
@@ -82,7 +99,7 @@ class App extends Component {
         </NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-flex align-items-center">
-            <NavLink className="font-weight-bold" href="/">
+            <NavLink className="font-weight-bold" onClick={this.setRedirect}>
               <font color="white">
               Home
               </font>
@@ -97,7 +114,7 @@ class App extends Component {
           </NavItem>
         </Nav>
       </Navbar>
-      <div className="container-fluid">
+      <div className="container-fluid" id="app-bg">
         <div className="d-flex flex-row flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
           <div>
           { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
