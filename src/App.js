@@ -79,7 +79,7 @@ class App extends Component {
           </div>
           <div class="p-2"/>
           <div className="d-flex flex-column justify-content-center align-items-center align-content-center card">
-            <div className="d-flex flex-column justify-content-space-between align-content-space-between card-body">
+            <div className="d-flex flex-column justify-content-space-between align-content-center card-body">
               <div className="form-group">
                 <label htmlFor="lang">
                   Sort by
@@ -96,7 +96,7 @@ class App extends Component {
               </div>
               </div>
 
-            <div className="d-flex flex-row justify-content-space-between align-content-space-between card-body">
+            <div className="d-flex flex-row justify-content-space-between align-content-space-between">
               <div className="form-group">
                 <label htmlFor="lang">
                   Data to Show
@@ -108,6 +108,8 @@ class App extends Component {
                 </select>
               </div>
 
+              <div className="p-2"/>
+              <div className="p-2"/>
               <div className="p-2"/>
 
               <div className="form-group">
@@ -125,6 +127,8 @@ class App extends Component {
                 <p align="center">2015 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2016 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2017 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018</p>
                 <input  type="range" min="0" max="3" step="1" class="slider"/>
               </div>
+
+              <hr width="200"/>
                 
                 <div className="card-body">
                 <h3 className="card-title" align="center">Average Time</h3>
