@@ -31,7 +31,8 @@ class Column extends Component {
         },
         xaxis: {
           type: 'category',
-          categories: ['Injustice 2', 'Ragnarok Online', 'Counter Strike', 'The Sherlock Holmes', 'Battlezone God Edition', 'Adrift', 'Far Cry Primal', 'Planet Coaster'],
+          // categories: ['Injustice 2', 'Ragnarok Online', 'Counter Strike', 'The Sherlock Holmes', 'Battlezone God Edition', 'Adrift', 'Far Cry Primal', 'Planet Coaster'],
+          categories: this.props.data.map(datum => datum.x),
           labels: {
             rotate: -45,
             rotateAlways: true,
@@ -137,14 +138,15 @@ class Column extends Component {
       series: [
         {
           name: 'Denuvo',
-          data: [30, 40, 25, 50, 49, 21, 70, 51]
+          // data: [30, 40, 25, 50, 49, 21, 70, 51]
+          data: this.props.data.map(datum => datum.y)
         }
     ],
     }
   }
 
   render() {
-
+    console.log('from column: ',this.props.data);
     return (
       <div className="column">
         <Chart options={this.state.options} series={this.state.series} type="bar" width="800" />
