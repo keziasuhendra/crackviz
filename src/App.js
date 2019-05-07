@@ -110,7 +110,6 @@ class App extends Component {
 
               <div className="p-2"/>
               <div className="p-2"/>
-              <div className="p-2"/>
 
               <div className="form-group">
                 <label htmlFor="lang">
