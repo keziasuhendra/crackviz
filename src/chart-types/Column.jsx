@@ -38,20 +38,23 @@ class Column extends Component {
             rotateAlways: true,
             maxHeight: 300,
             style: {
-              fontSize: '17px'
+              fontSize: '12px'
             }
+          },
+          tooltip: {
+            enabled: true
           }
         },
         yaxis: {
           title: {
             text: 'Day(s)',
             style: {
-              fontSize: '17px'
+              fontSize: '14px'
             }
           },
           labels: {
             style: {
-              fontSize: '17px'
+              fontSize: '14px'
             }
           }
         },
@@ -62,8 +65,8 @@ class Column extends Component {
           offsetY: 0,
           floating: false,
           style: {
-            fontSize:  '40px',
-            color:  '#263238'
+            fontSize: '30px',
+            color: '#263238'
           },
         },
         tooltip: {
@@ -89,27 +92,19 @@ class Column extends Component {
         },
         fill: {
           type: 'solid',
-          // gradient: {
-          //   // colors: ['#41B883', '#E46651', '#E46651'],
-          //   shade: 'light',
-          //   type: "horizontal",
-          //   shadeIntensity: 0.25,
-          //   inverseColors: true,
-          //   opacityFrom: 0.85,
-          //   opacityTo: 0.85,
-          //   stops: [50, 0, 100]
-          // },
-        },
-        grid: {
-          row: {
-            colors: ['#fff', '#f2f2f2']
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
           }
         },
         legend: {
           show: true,
           showForSingleSeries: true,
-          position: 'bottom',
-          horizontalAlign: 'center',
+          position: 'top',
+          horizontalAlign: 'right',
+          floating: false,
           fontSize: '17px',
           markers: {
             width: 10,
@@ -118,22 +113,53 @@ class Column extends Component {
             strokeColor: '#41B883',
             radius: 5,
             offsetX: 0,
-            offsetY: 0
+            offsetY:0
           },
           itemMargin: {
-            horizontal: 20,
+            horizontal: 10,
             vertical: 15
           },
           onItemClick: {
             toggleDataSeries: false
           },
         },
+        grid: {
+          yaxis: {
+            lines: {
+                show: true
+            }
+          },
+          row: {
+            colors: ['#fff', '#f2f2f2']
+          }
+        },
         plotOptions: {
           bar: {
               distributed: false,
-              columnWidth: '50%',
+              columnWidth: '70%%',
+              dataLabels : {
+                position: 'top'
+              }
           }
-        }
+        },
+        dataLabels: {
+          enabled: true,
+          offsetY: -20,
+          style: {
+            fontSize: '10px',
+            colors: ["#000000"]
+          }
+        },
+        theme: {
+          mode: 'light', 
+          palette: 'palette1', 
+          monochrome: {
+              enabled: false,
+              color: '#255aee',
+              shadeTo: 'light',
+              shadeIntensity: 0.65
+          },
+      }
       },
       series: [
         {
@@ -149,7 +175,7 @@ class Column extends Component {
     console.log('from column: ',this.props.data);
     return (
       <div className="column">
-        <Chart options={this.state.options} series={this.state.series} type="bar" width="800" />
+        <Chart options={this.state.options} series={this.state.series} type="bar" width="1200" />
       </div>
     );
   }
