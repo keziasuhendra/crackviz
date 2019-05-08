@@ -9,8 +9,6 @@ import ChartUpdate from './ChartUpdate'
 import DataSource from './data/datasource'
 import { Redirect } from 'react-router-dom'
 
-import ReactPaginate from 'react-paginate';
-
 import './app.css'
 import './index.css'
 
@@ -50,9 +48,9 @@ class App extends Component {
       form: {
         max: 40,
         drm: 'denuvo',
-        year: 2018,
-        sortBy: 'x',
-        asc: false
+        year: 2015,
+        sortBy: 'y',
+        asc: true
       },
       averageDay: 0,
       pageCount: 0,
@@ -78,6 +76,12 @@ class App extends Component {
 
     if (name === 'max') {
       form[name] = parseInt(value);
+    } else if (name === 'asc') {
+      if (value === 'asc') {
+        form[name] = true;
+      } else {
+        form[name] = false;
+      }
     } else {
       form[name] = value;
     }
@@ -157,13 +161,7 @@ class App extends Component {
       <div className="container-fluid" id="app-bg">
         <div className="d-flex flex-row flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
           <div>
-          { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
-          { this.state.selectedChart === 'bar' ? (<Bar></Bar>) : null}
-          { this.state.selectedChart === 'line' ? (<Line></Line>) : null}
           { this.state.selectedChart === 'column' ? (<Column data = {dataSeries.series? dataSeries.series[0].data : []}></Column>) : null}
-          { this.state.selectedChart === 'radialbar' ? (<RadialBar></RadialBar>) : null}
-          { this.state.selectedChart === 'donut' ? (<Donut></Donut>) : null}
-          { this.state.selectedChart === 'updateExample' ? (<ChartUpdate></ChartUpdate>) : null}
           </div>
           <div class="p-2"/>
           <div className="d-flex flex-column justify-content-center align-items-center align-content-center card">
@@ -172,14 +170,10 @@ class App extends Component {
                 <label htmlFor="lang">
                   Sort by
                 </label><div class="p-1"/>
-                <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
-                  <option value="line" >Line</option>
-                  <option value="area" >Area</option>
-                  <option value="bar" >Bar</option>
-                  <option value="column" >Column</option>
-                  <option value="radialbar" >RadialBar</option>
-                  <option value="donut" >Donut</option>
-                  <option value="updateExample" >Chart Update Example</option>
+                <select id="lang" name="sortBy" onChange={this.handleFormChange}>
+                  <option value="y" >Time to Crack</option>
+                  <option value="ReleaseDateMillis" >Release Date</option>
+                  <option value="x" >Title</option>
                 </select>
               </div>
 
@@ -187,7 +181,7 @@ class App extends Component {
                <div> 
                 <FormGroup check>
                   <Label check>
-                    <Input type="checkbox" name="sorter" />{' '}
+                    <Input type="checkbox" name="asc" value="asc" checked={this.state.form.asc === true} onChange={this.handleFormChange}/>{' '}
                     Asc
                   </Label>
                 </FormGroup>
@@ -196,7 +190,7 @@ class App extends Component {
               <div>
                 <FormGroup check>
                   <Label check>
-                    <Input type="checkbox" name="sorter" />{' '}
+                    <Input type="checkbox" name="asc" value="desc" checked={this.state.form.asc === false} onChange={this.handleFormChange}/>{' '}
                     Desc
                   </Label>
                 </FormGroup>
@@ -236,7 +230,7 @@ class App extends Component {
                 <div className="d-flex flex-row justify-content-space-between align-content-space-between">
                   <p>2015</p> <span className="p-2"/> <p>2016</p> <span className="p-2"/> <p>2017</p> <span className="p-2"/> <p>2018</p>
                 </div>
-                <input type="range" min="0" max="3" step="1" clasName="slider"/>
+                <input type="range" min="2015" max="2018" step="1" clasName="slider" name="year" value={this.state.form.year} onChange={this.handleFormChange}/>
                 <div> 
                 <div className="p-2"/>
                 <FormGroup check>
@@ -290,7 +284,7 @@ class App extends Component {
               </Row>
             </div> */}
 
-            <link href="index.css" rel="stylesheet"></link>
+            {/* <link href="index.css" rel="stylesheet"></link>
             <ReactPaginate
               previousLabel={'previous'}
               nextLabel={'next'}
@@ -304,7 +298,7 @@ class App extends Component {
               containerClassName={'pagination'}
               subContainerClassName={'pages pagination'}
               activeClassName={'active'}
-            />
+            /> */}
               {/* <hr/>
               <h3 className="card-title" align="center">Average Time</h3>
               <h1 className="card-text" align="center">20 Day(s)</h1>
