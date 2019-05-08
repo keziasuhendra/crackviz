@@ -14,7 +14,7 @@ import './index.css'
 
 
 import {
-  Navbar, NavbarBrand, Nav, NavItem, NavLink, FormGroup, Label, Input
+  Navbar, NavbarBrand, Nav, NavItem, NavLink, FormGroup, Label, Input, Modal, ModalBody, ModalHeader, ModalFooter, Button
 } from 'reactstrap';
 
 var data = new DataSource();
@@ -228,6 +228,9 @@ class App extends Component {
                 <select name="drm" value={this.state.form.drm} onChange={this.handleFormChange}>
                   <option value="denuvo" >Denuvo</option>
                   <option value="steam" >Steam</option>
+                  {/* <option value="uplay" >Uplay</option>
+                  <option value="epicgames" >Epic Games</option>
+                  <option value="origin" > Origin</option> */}
                 </select>
               </div>
 
@@ -258,7 +261,11 @@ class App extends Component {
                 </div>
                 <div className="card-body">
                 <h5 className="card-title" align="center">Games protected by:</h5>
-                <center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></center>
+                {this.state.form.drm === 'denuvo'? <center><a href="https://en.wikipedia.org/wiki/Denuvo" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></a></center> : null}
+                {this.state.form.drm === 'steam'? <center><a href="https://en.wikipedia.org/wiki/Steam_(software)" target="_blank"><img src="http://totalmayhemgames.com/wp-content/uploads/2018/09/steam-logo.png" alt="Cinque Terre" width="200"/></a></center> : null}
+                {/* {this.state.form.drm === 'uplay'? <center><a href="https://en.wikipedia.org/wiki/Uplay" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Uplay-logo.webp/610px-Uplay-logo.webp.png" alt="Cinque Terre" width="150"/></a></center> : null}
+                {this.state.form.drm === 'epicgames'? <center><a href="https://en.wikipedia.org/wiki/Epic_Games" target="_blank"><img src="https://cdn.wccftech.com/wp-content/uploads/2018/12/epic_games_logo_white.jpg" alt="Cinque Terre" width="200"/></a></center> : null}
+                {this.state.form.drm === 'origin'? <center><a href="https://en.wikipedia.org/wiki/Origin_(digital_distribution_software)" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Origin.svg/1680px-Origin.svg.png" alt="Cinque Terre" width="200"/></a></center> : null} */}
             </div>
 
             {/* <div className="form-group">
