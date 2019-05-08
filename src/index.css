@@ -13,6 +13,10 @@ body {
   background-repeat: no-repeat;
 }
 
+.apexcharts-tooltip {
+  background-image: url("/146073.jpg")
+}
+
 #jumbo {
   background: rgba(255, 255, 255, 0.1);
 }

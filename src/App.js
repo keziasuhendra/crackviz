@@ -17,7 +17,7 @@ import './index.css'
 
 
 import {
-  Navbar, NavbarBrand, Nav, NavItem, NavLink, Row, Col
+  Navbar, NavbarBrand, Nav, NavItem, NavLink, FormGroup, Label, Input
 } from 'reactstrap';
 
 var data = new DataSource();
@@ -49,12 +49,13 @@ class App extends Component {
     this.state = {
       selectedChart: 'column',
       form: {
-        max: 50,
+        max: 40,
         drm: 'denuvo',
-        year: '2015',
+        year: 2015,
         sortBy: 'y',
-        asc: false
+        asc: true
       },
+      averageDay: 0,
       pageCount: 0,
       currentPage: 0,
       pagesRange: []
@@ -79,7 +80,20 @@ class App extends Component {
 
     if (name === 'max') {
       form[name] = parseInt(value);
-    } else {
+    } else if (name === 'asc') {
+      if (value === 'asc') {
+        form[name] = true;
+      } else {
+        form[name] = false;
+      }
+    } else if (name === 'year') {
+      if (form[name] === parseInt(value)) {
+        form[name] = 2018
+      } else {
+        form[name] = parseInt(value)
+      }
+    } 
+    else {
       form[name] = value;
     }
 
@@ -129,15 +143,21 @@ class App extends Component {
 
   loadNewData () {
     var { max, drm, year, sortBy, asc } = this.state.form;
-    this.dataSeries = data.ready ? data.getSeries({drm}, sortBy, asc, this.state) : {};
+    this.dataSeries = data.ready ? data.getSeries({drm, year}, sortBy, asc, this.state) : {};
     this.dataArray = this.dataSeries.series[0].data
     var currentPage = 0
     var pageCount = Math.ceil(this.dataArray.length / this.state.form.max)
     var pagesRange = [...Array(pageCount>=5?5:pageCount)];
     pagesRange = pagesRange.map((val,key) => key);
-    console.log(pagesRange);
 
-    this.setState({currentPage,pageCount,pagesRange});
+    var i = 0
+    var sum = 0
+    for (;i < this.dataArray.length; i ++) {
+      sum = sum + this.dataArray[i]["y"]
+    }
+    var averageDay = sum / this.dataArray.length
+
+    this.setState({currentPage,pageCount,pagesRange,averageDay});
   }
 
   render () {
@@ -179,13 +199,7 @@ class App extends Component {
       <div className="container-fluid" id="app-bg">
         <div className="d-flex flex-row flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
           <div>
-          { this.state.selectedChart === 'area' ? (<Area></Area>) : null}
-          { this.state.selectedChart === 'bar' ? (<Bar></Bar>) : null}
-          { this.state.selectedChart === 'line' ? (<Line></Line>) : null}
           { this.state.selectedChart === 'column' ? (<Column data = {dataSeries.series? dataSeries.series[0].data : []}></Column>) : null}
-          { this.state.selectedChart === 'radialbar' ? (<RadialBar></RadialBar>) : null}
-          { this.state.selectedChart === 'donut' ? (<Donut></Donut>) : null}
-          { this.state.selectedChart === 'updateExample' ? (<ChartUpdate></ChartUpdate>) : null}
           </div>
           <div className="p-2"/>
           <div className="d-flex flex-column justify-content-center align-items-center align-content-center card">
@@ -193,38 +207,55 @@ class App extends Component {
               <div className="form-group">
                 <label htmlFor="lang">
                   Sort by
-                </label><br/>
-                <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
-                  <option value="line" >Line</option>
-                  <option value="area" >Area</option>
-                  <option value="bar" >Bar</option>
-                  <option value="column" >Column</option>
-                  <option value="radialbar" >RadialBar</option>
-                  <option value="donut" >Donut</option>
-                  <option value="updateExample" >Chart Update Example</option>
+                </label><div class="p-1"/>
+                <select id="lang" name="sortBy" onChange={this.handleFormChange}>
+                  <option value="y" >Time to Crack</option>
+                  <option value="ReleaseDateMillis" >Release Date</option>
+                  <option value="x" >Title</option>
                 </select>
               </div>
-              </div>
 
+              <div className="d-flex flex-row justify-content-left align-items-left align-content-left">
+               <div> 
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" name="asc" value="asc" checked={this.state.form.asc === true} onChange={this.handleFormChange}/>{' '}
+                    Asc
+                  </Label>
+                </FormGroup>
+              </div>
+              <div class="p-2"/>
+              <div>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" name="asc" value="desc" checked={this.state.form.asc === false} onChange={this.handleFormChange}/>{' '}
+                    Desc
+                  </Label>
+                </FormGroup>
+              </div>
+              </div>
+            </div>
+
+            <div class="p-2"/>
             <div className="d-flex flex-row justify-content-space-between align-content-space-between">
               <div className="form-group">
                 <label htmlFor="max">
                   Data to Show
-                </label><br/>
+                </label><div class="p-1"/>
                 <select name="max" value={this.state.form.max} onChange={this.handleFormChange}>
                   <option value={10} >10</option>
                   <option value={20} >20</option>
-                  <option value={50} >50</option>
+                  <option value={30} >30</option>
+                  <option value={40} >40</option>
                 </select>
               </div>
 
-              <div className="p-2"/>
               <div className="p-2"/>
 
               <div className="form-group">
                 <label htmlFor="drm">
                   DRM
-                </label><br/>
+                </label><div class="p-1"/>
                 <select name="drm" value={this.state.form.drm} onChange={this.handleFormChange}>
                   <option value="denuvo" >Denuvo</option>
                   <option value="steam" >Steam</option>
@@ -232,16 +263,29 @@ class App extends Component {
               </div>
 
               </div>
-              <div className="slidecontainer d-flex flex-column justify-content-space-between align-content-space-between card-body">
-                <p align="center">2015 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2016 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2017 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018</p>
-                <input  type="range" min="0" max="3" step="1" className="slider"/>
+              <div class="p-2"/>
+              <div class="slidecontainer d-flex flex-column justify-content-space-between align-content-space-between">
+                <div className="d-flex flex-row justify-content-space-between align-content-space-between">
+                  <p>2015</p> <span className="p-2"/> <p>2016</p> <span className="p-2"/> <p>2017</p> <span className="p-2"/> <p>2018</p>
+                </div>
+                <input type="range" min="2015" max="2018" step="1" clasName="slider" name="year" value={this.state.form.year} onChange={this.handleFormChange} disabled={this.state.form.year === 0}/>
+                <div> 
+                <div className="p-2"/>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" name="year" value="0" checked={this.state.form.year === 0} onChange={this.handleFormChange}/>{' '}
+                    All Year (2015-2018)
+                  </Label>
+                </FormGroup>
+                <div class="p-2"/>
+              </div>
               </div>
 
               <hr width="200"/>
                 
                 <div className="card-body">
                 <h3 className="card-title" align="center">Average Time</h3>
-                <h1 className="card-text" align="center">20 Day(s)</h1>
+                <h1 className="card-text" align="center">{Math.round(this.state.averageDay * 100)/100} Day(s)</h1>
                 </div>
                 <div className="card-body">
                 <h5 className="card-title" align="center">Games protected by:</h5>

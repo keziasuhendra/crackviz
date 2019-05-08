@@ -151,18 +151,18 @@ class Column extends Component {
         },
         theme: {
           mode: 'light', 
-          palette: 'palette1', 
+          palette: 'palette4', 
           monochrome: {
               enabled: true,
               color: this.props.data.length > 0 ? this.getColorByDrm(this.props.data[0].drm) : '#F6F8F9',
               shadeTo: 'light',
-              shadeIntensity: 0.65
+              shadeIntensity: 0.5
           },
       }
       },
       series: [
         {
-          name: 'Denuvo',
+          name: this.props.data.length > 0 ? this.props.data[0].drm : 'Unknown',
           data: this.props.data.map(datum => datum.y)
         }
     ],
