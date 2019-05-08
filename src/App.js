@@ -74,7 +74,7 @@ class App extends Component {
     let { form } = this.state;
     const { name, value } = e.target;
 
-    if (name === 'max') {
+    if (name === 'max' || name === 'year') {
       form[name] = parseInt(value);
     } else if (name === 'asc') {
       if (value === 'asc') {
@@ -230,12 +230,12 @@ class App extends Component {
                 <div className="d-flex flex-row justify-content-space-between align-content-space-between">
                   <p>2015</p> <span className="p-2"/> <p>2016</p> <span className="p-2"/> <p>2017</p> <span className="p-2"/> <p>2018</p>
                 </div>
-                <input type="range" min="2015" max="2018" step="1" clasName="slider" name="year" value={this.state.form.year} onChange={this.handleFormChange}/>
+                <input type="range" min="2015" max="2018" step="1" clasName="slider" name="year" value={this.state.form.year} onChange={this.handleFormChange} disabled={this.state.form.year === 0}/>
                 <div> 
                 <div className="p-2"/>
                 <FormGroup check>
                   <Label check>
-                    <Input type="checkbox" name="sorter" />{' '}
+                    <Input type="checkbox" name="year" value="0" checked={this.state.form.year === 0} onChange={this.handleFormChange}/>{' '}
                     All Year (2015-2018)
                   </Label>
                 </FormGroup>
