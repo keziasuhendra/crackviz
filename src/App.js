@@ -247,7 +247,7 @@ class App extends Component {
                 
                 <div className="card-body">
                 <h3 className="card-title" align="center">Average Time</h3>
-                <h1 className="card-text" align="center">20 Day(s)</h1>
+                <h1 className="card-text" align="center">{Math.round(this.state.averageDay * 100)/100} Day(s)</h1>
                 </div>
                 <div className="card-body">
                 <h5 className="card-title" align="center">Games protected by:</h5>
