@@ -8,7 +8,12 @@ import RadialBar from './chart-types/RadialBar'
 import ChartUpdate from './ChartUpdate'
 import DataSource from './data/datasource'
 import { Redirect } from 'react-router-dom'
+
+import ReactPaginate from 'react-paginate';
+
 import './app.css'
+import './index.css'
+
 
 import {
   Navbar, NavbarBrand, Nav, NavItem, NavLink, FormGroup, Label, Input
@@ -17,6 +22,10 @@ import {
 var data = new DataSource();
 
 class App extends Component {
+
+  dataSeries
+  dataArray
+
   state = {
     redirect: false
   }
@@ -41,10 +50,13 @@ class App extends Component {
       form: {
         max: 40,
         drm: 'denuvo',
-        year: '2015',
-        sortBy: 'y',
+        year: 2018,
+        sortBy: 'x',
         asc: false
       },
+      averageDay: 0,
+      pageCount: 0,
+      currentPage: 0
     }
 
   }
@@ -70,9 +82,34 @@ class App extends Component {
       form[name] = value;
     }
 
+    this.loadNewData()
+
     this.setState({form},()=>{
       this.updateChart();
     });
+  }
+
+  handlePageClick = data => {
+    let selected = data.selected;
+
+    this.setState({ currentPage: selected }, () => {
+      this.updateChart();
+    });
+  };
+
+  loadNewData () {
+    var { max, drm, year, sortBy, asc } = this.state.form;
+    this.dataSeries = data.ready ? data.getSeries({drm, year}, sortBy, asc, this.state) : {};
+    this.dataArray = this.dataSeries.series[0].data
+    this.state.currentPage = 0
+    this.state.pageCount = (this.dataArray.length / this.state.form.max)
+
+    var i = 0
+    var sum = 0
+    for (;i < this.dataArray.length; i ++) {
+      sum = sum + this.dataArray[i]["y"]
+    }
+    this.state.averageDay = sum / this.dataArray.length
   }
 
   render () {
@@ -83,10 +120,13 @@ class App extends Component {
     // } else {
     //   console.log("not ready")
     // }
-    var { max, drm, year, sortBy, asc } = this.state.form;
-    var dataSeries = data.ready ? data.getSeries(max, {drm}, sortBy, asc) : {};
-    // console.log(dataSeries);
-    // console.log(this.state);
+    if (this.dataSeries == undefined) {
+      this.loadNewData( )
+    }
+
+    var dataSeries = this.dataSeries
+    dataSeries.series[0].data = this.dataArray.slice (this.state.form.max * (this.state.currentPage), this.state.form.max * (this.state.currentPage + 1))
+
     
     return (
       <div className="app">
@@ -249,7 +289,22 @@ class App extends Component {
                 </Col>
               </Row>
             </div> */}
-              
+
+            <link href="index.css" rel="stylesheet"></link>
+            <ReactPaginate
+              previousLabel={'previous'}
+              nextLabel={'next'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={this.state.pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              initialPage={this.state.currentPage}
+              onPageChange={this.handlePageClick}
+              containerClassName={'pagination'}
+              subContainerClassName={'pages pagination'}
+              activeClassName={'active'}
+            />
               {/* <hr/>
               <h3 className="card-title" align="center">Average Time</h3>
               <h1 className="card-text" align="center">20 Day(s)</h1>
@@ -259,9 +314,11 @@ class App extends Component {
           </div>
         </div>
       </div>
+      
     </div>
     )
   }
 }
 
 export default App
+
