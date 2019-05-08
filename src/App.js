@@ -11,7 +11,7 @@ import { Redirect } from 'react-router-dom'
 import './app.css'
 
 import {
-  Navbar, NavbarBrand, Nav, NavItem, NavLink, Row, Col
+  Navbar, NavbarBrand, Nav, NavItem, NavLink, FormGroup, Label, Input
 } from 'reactstrap';
 
 var data = new DataSource();
@@ -39,7 +39,7 @@ class App extends Component {
     this.state = {
       selectedChart: 'column',
       form: {
-        max: 50,
+        max: 40,
         drm: 'denuvo',
         year: '2015',
         sortBy: 'y',
@@ -131,7 +131,7 @@ class App extends Component {
               <div className="form-group">
                 <label htmlFor="lang">
                   Sort by
-                </label><br/>
+                </label><div class="p-1"/>
                 <select id="lang" value={this.state.selectedChart} onChange={this.changeChart}>
                   <option value="line" >Line</option>
                   <option value="area" >Area</option>
@@ -142,27 +142,48 @@ class App extends Component {
                   <option value="updateExample" >Chart Update Example</option>
                 </select>
               </div>
-              </div>
 
+              <div className="d-flex flex-row justify-content-left align-items-left align-content-left">
+               <div> 
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" name="sorter" />{' '}
+                    Asc
+                  </Label>
+                </FormGroup>
+              </div>
+              <div class="p-2"/>
+              <div>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" name="sorter" />{' '}
+                    Desc
+                  </Label>
+                </FormGroup>
+              </div>
+              </div>
+            </div>
+
+            <div class="p-2"/>
             <div className="d-flex flex-row justify-content-space-between align-content-space-between">
               <div className="form-group">
                 <label htmlFor="max">
                   Data to Show
-                </label><br/>
+                </label><div class="p-1"/>
                 <select name="max" value={this.state.form.max} onChange={this.handleFormChange}>
                   <option value={10} >10</option>
                   <option value={20} >20</option>
-                  <option value={50} >50</option>
+                  <option value={30} >30</option>
+                  <option value={40} >40</option>
                 </select>
               </div>
 
-              <div className="p-2"/>
               <div className="p-2"/>
 
               <div className="form-group">
                 <label htmlFor="drm">
                   DRM
-                </label><br/>
+                </label><div class="p-1"/>
                 <select name="drm" value={this.state.form.drm} onChange={this.handleFormChange}>
                   <option value="denuvo" >Denuvo</option>
                   <option value="steam" >Steam</option>
@@ -170,9 +191,22 @@ class App extends Component {
               </div>
 
               </div>
-              <div class="slidecontainer d-flex flex-column justify-content-space-between align-content-space-between card-body">
-                <p align="center">2015 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2016 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2017 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018</p>
-                <input  type="range" min="0" max="3" step="1" class="slider"/>
+              <div class="p-2"/>
+              <div class="slidecontainer d-flex flex-column justify-content-space-between align-content-space-between">
+                <div className="d-flex flex-row justify-content-space-between align-content-space-between">
+                  <p>2015</p> <span className="p-2"/> <p>2016</p> <span className="p-2"/> <p>2017</p> <span className="p-2"/> <p>2018</p>
+                </div>
+                <input type="range" min="0" max="3" step="1" clasName="slider"/>
+                <div> 
+                <div className="p-2"/>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" name="sorter" />{' '}
+                    All Year (2015-2018)
+                  </Label>
+                </FormGroup>
+                <div class="p-2"/>
+              </div>
               </div>
 
               <hr width="200"/>
