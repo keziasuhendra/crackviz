@@ -74,7 +74,7 @@ class App extends Component {
     let { form } = this.state;
     const { name, value } = e.target;
 
-    if (name === 'max' || name === 'year') {
+    if (name === 'max') {
       form[name] = parseInt(value);
     } else if (name === 'asc') {
       if (value === 'asc') {
@@ -82,7 +82,14 @@ class App extends Component {
       } else {
         form[name] = false;
       }
-    } else {
+    } else if (name === 'year') {
+      if (form[name] === parseInt(value)) {
+        form[name] = 2018
+      } else {
+        form[name] = parseInt(value)
+      }
+    } 
+    else {
       form[name] = value;
     }
 
