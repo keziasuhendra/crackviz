@@ -271,7 +271,7 @@ class App extends Component {
                 <div className="d-flex flex-row justify-content-space-between align-content-space-between">
                   <p>2015</p> <span className="p-2"/> <p>2016</p> <span className="p-2"/> <p>2017</p> <span className="p-2"/> <p>2018</p>
                 </div>
-                <input type="range" min="2015" max="2018" step="1" clasName="slider" name="year" value={this.state.form.year} onChange={this.handleFormChange} disabled={this.state.form.year === 0}/>
+                <input type="range" min="2015" max="2018" step="1" className="slider" name="year" value={this.state.form.year} onChange={this.handleFormChange} disabled={this.state.form.year === 0}/>
                 <div> 
                 <div className="p-2"/>
                 <FormGroup check>
