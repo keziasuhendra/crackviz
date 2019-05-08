@@ -50,7 +50,7 @@ class App extends Component {
       form: {
         max: 50,
         drm: 'denuvo',
-        year: 2015,
+        year: 2018,
         sortBy: 'y',
         asc: false
       },

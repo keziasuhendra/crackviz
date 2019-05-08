@@ -82,8 +82,12 @@ class DataSource {
         //item filter
         data = data.filter(function(item) {
             for (var key in filter) {
-              if (item[key] === undefined || item[key] !== filter[key])
+              if(key === "year" && filter[key] === 0) {
+                //lolos
+              } else if (item[key] === undefined || item[key] !== filter[key]) {
                 return false;
+              }
+                
             }
             return true;
         });
