@@ -172,8 +172,8 @@ class App extends Component {
           </div>
           <div class="p-2"/>
           <div className="d-flex flex-column justify-content-center align-items-center align-content-center card">
-            <div className="d-flex flex-column justify-content-space-between align-content-center card-body">
-              <div className="form-group">
+            <div className="d-flex flex-row justify-content-space-between align-content-left card-body">
+              <div className="form-group d-flex flex-column justify-content-space-between align-content-left">
                 <label htmlFor="lang">
                   Sort by
                 </label><div class="p-1"/>
@@ -184,7 +184,9 @@ class App extends Component {
                 </select>
               </div>
 
-              <div className="d-flex flex-row justify-content-left align-items-left align-content-left">
+              <div class="p-2"/>
+              <div className="d-flex flex-column justify-content-left align-items-left align-content-left">
+              <div class="p-2"/>
                <div> 
                 <FormGroup check>
                   <Label check>
@@ -193,7 +195,7 @@ class App extends Component {
                   </Label>
                 </FormGroup>
               </div>
-              <div class="p-2"/>
+              <div class="p-1"/>
               <div>
                 <FormGroup check>
                   <Label check>
@@ -205,7 +207,6 @@ class App extends Component {
               </div>
             </div>
 
-            <div class="p-2"/>
             <div className="d-flex flex-row justify-content-space-between align-content-space-between">
               <div className="form-group">
                 <label htmlFor="max">
@@ -228,9 +229,9 @@ class App extends Component {
                 <select name="drm" value={this.state.form.drm} onChange={this.handleFormChange}>
                   <option value="denuvo" >Denuvo</option>
                   <option value="steam" >Steam</option>
-                  {/* <option value="uplay" >Uplay</option>
+                  <option value="uplay" >Uplay</option>
                   <option value="epicgames" >Epic Games</option>
-                  <option value="origin" > Origin</option> */}
+                  <option value="origin" > Origin</option>
                 </select>
               </div>
 
@@ -263,9 +264,9 @@ class App extends Component {
                 <h5 className="card-title" align="center">Games protected by:</h5>
                 {this.state.form.drm === 'denuvo'? <center><a href="https://en.wikipedia.org/wiki/Denuvo" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></a></center> : null}
                 {this.state.form.drm === 'steam'? <center><a href="https://en.wikipedia.org/wiki/Steam_(software)" target="_blank"><img src="http://totalmayhemgames.com/wp-content/uploads/2018/09/steam-logo.png" alt="Cinque Terre" width="200"/></a></center> : null}
-                {/* {this.state.form.drm === 'uplay'? <center><a href="https://en.wikipedia.org/wiki/Uplay" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Uplay-logo.webp/610px-Uplay-logo.webp.png" alt="Cinque Terre" width="150"/></a></center> : null}
+                {this.state.form.drm === 'uplay'? <center><a href="https://en.wikipedia.org/wiki/Uplay" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Uplay-logo.webp/610px-Uplay-logo.webp.png" alt="Cinque Terre" width="150"/></a></center> : null}
                 {this.state.form.drm === 'epicgames'? <center><a href="https://en.wikipedia.org/wiki/Epic_Games" target="_blank"><img src="https://cdn.wccftech.com/wp-content/uploads/2018/12/epic_games_logo_white.jpg" alt="Cinque Terre" width="200"/></a></center> : null}
-                {this.state.form.drm === 'origin'? <center><a href="https://en.wikipedia.org/wiki/Origin_(digital_distribution_software)" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Origin.svg/1680px-Origin.svg.png" alt="Cinque Terre" width="200"/></a></center> : null} */}
+                {this.state.form.drm === 'origin'? <center><a href="https://en.wikipedia.org/wiki/Origin_(digital_distribution_software)" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Origin.svg/1680px-Origin.svg.png" alt="Cinque Terre" width="200"/></a></center> : null}
             </div>
 
             {/* <div className="form-group">
