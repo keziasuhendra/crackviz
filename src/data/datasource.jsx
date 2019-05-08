@@ -37,16 +37,21 @@ class DataSource {
                     if (day < 0) {
                         day = 0
                     }
+
+                    //currently only shows cracked games
+                    var data = {
+                        x: title,
+                        y: day,
+                        drm: drm
+                    }
+
+                    this.data.push(data)
+
                 } else {
                     day = -1
                 }
     
-                var data = {
-                    x: title,
-                    y: day,
-                    drm: drm
-                }
-                this.data.push(data)
+
             }
 
         }
@@ -65,7 +70,7 @@ class DataSource {
     }
 
     //use this function to get data
-    getSeries(max = 0, filter = {}, sortBy = "none", asc = true) {
+    getSeries(filter = {}, sortBy = "none", asc = true) {
         var series = []
 
         var data
@@ -100,11 +105,6 @@ class DataSource {
             }
 
             data.sort(sortFunction)
-        }
-
-        //max limit
-        if(max !== 0){
-            data = data.slice(0, max)
         }
 
         //create series format and return
