@@ -51,9 +51,10 @@ class App extends Component {
         max: 50,
         drm: 'denuvo',
         year: 2018,
-        sortBy: 'y',
+        sortBy: 'x',
         asc: false
       },
+      averageDay: 0,
       pageCount: 0,
       currentPage: 0
     }
@@ -102,6 +103,13 @@ class App extends Component {
     this.dataArray = this.dataSeries.series[0].data
     this.state.currentPage = 0
     this.state.pageCount = (this.dataArray.length / this.state.form.max)
+
+    var i = 0
+    var sum = 0
+    for (;i < this.dataArray.length; i ++) {
+      sum = sum + this.dataArray[i]["y"]
+    }
+    this.state.averageDay = sum / this.dataArray.length
   }
 
   render () {
