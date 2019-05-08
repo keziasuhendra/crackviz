@@ -37,21 +37,23 @@ class DataSource {
                     if (day < 0) {
                         day = 0
                     }
+                    
+                    var releaseDateMilis = releaseDate.getTime()
+                    var year = releaseDate.getFullYear()
 
                     //currently only shows cracked games
                     var data = {
                         x: title,
                         y: day,
-                        drm: drm
+                        drm: drm,
+                        releaseDateMilis: releaseDateMilis,
+                        releaseDate: json[i]["releaseDate"],
+                        year: year
                     }
 
                     this.data.push(data)
 
-                } else {
-                    day = -1
                 }
-    
-
             }
 
         }

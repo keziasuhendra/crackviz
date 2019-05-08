@@ -50,7 +50,7 @@ class App extends Component {
       form: {
         max: 50,
         drm: 'denuvo',
-        year: '2015',
+        year: 2015,
         sortBy: 'y',
         asc: false
       },
@@ -98,7 +98,7 @@ class App extends Component {
 
   loadNewData () {
     var { max, drm, year, sortBy, asc } = this.state.form;
-    this.dataSeries = data.ready ? data.getSeries({drm}, sortBy, asc, this.state) : {};
+    this.dataSeries = data.ready ? data.getSeries({drm, year}, sortBy, asc, this.state) : {};
     this.dataArray = this.dataSeries.series[0].data
     this.state.currentPage = 0
     this.state.pageCount = (this.dataArray.length / this.state.form.max)
