@@ -31,7 +31,6 @@ class Column extends Component {
         },
         xaxis: {
           type: 'category',
-          // categories: ['Injustice 2', 'Ragnarok Online', 'Counter Strike', 'The Sherlock Holmes', 'Battlezone God Edition', 'Adrift', 'Far Cry Primal', 'Planet Coaster'],
           categories: this.props.data.map(datum => datum.x),
           labels: {
             rotate: -45,
@@ -154,8 +153,8 @@ class Column extends Component {
           mode: 'light', 
           palette: 'palette1', 
           monochrome: {
-              enabled: false,
-              color: '#255aee',
+              enabled: true,
+              color: this.props.data.length > 0 ? this.getColorByDrm(this.props.data[0].drm) : '#F6F8F9',
               shadeTo: 'light',
               shadeIntensity: 0.65
           },
@@ -164,15 +163,45 @@ class Column extends Component {
       series: [
         {
           name: 'Denuvo',
-          // data: [30, 40, 25, 50, 49, 21, 70, 51]
           data: this.props.data.map(datum => datum.y)
         }
     ],
     }
   }
 
+  getColorByDrm = (drm) => {
+    var def = "#F6F8F9";
+    var color = def;
+    switch(drm){
+      case "denuvo":
+        color = "#1865B4";
+        break;
+      case "steam":
+        color = "#CC4201";
+        break;
+      case "epicgames":
+        color = "#02734D";
+        break;
+      case "uplay":
+        color = "#D70947";
+        break;
+      case "origin":
+        color = "#772ACB";
+        break;
+      case "uwp":
+        color = "#0A7683";
+        break;
+      case "battle.net":
+        color = "#2530D5";
+        break;
+      default:
+        color = def;
+    }
+
+    return color;
+  }
+
   render() {
-    console.log('from column: ',this.props.data);
     return (
       <div className="column">
         <Chart options={this.state.options} series={this.state.series} type="bar" width="1200" />

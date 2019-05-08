@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+// import ReactPaginate from 'react-paginate';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+
 import Area from './chart-types/Area'
 import Bar from './chart-types/Bar'
 import Column from './chart-types/Column'
@@ -8,8 +11,6 @@ import RadialBar from './chart-types/RadialBar'
 import ChartUpdate from './ChartUpdate'
 import DataSource from './data/datasource'
 import { Redirect } from 'react-router-dom'
-
-import ReactPaginate from 'react-paginate';
 
 import './app.css'
 import './index.css'
@@ -55,7 +56,8 @@ class App extends Component {
         asc: false
       },
       pageCount: 0,
-      currentPage: 0
+      currentPage: 0,
+      pagesRange: []
     }
 
   }
@@ -88,30 +90,57 @@ class App extends Component {
     });
   }
 
-  handlePageClick = data => {
-    let selected = data.selected;
+  handlePageClick = (i) => {
+    let selected = i;
 
     this.setState({ currentPage: selected }, () => {
       this.updateChart();
     });
   };
 
+  handlePaginationRange = (direction, first=false, last=false) => {
+    let min = 0;
+    let max = 4;
+
+    if (first) {
+      // do nothing
+    } else if (last) {
+      min = 5 * Math.floor(this.state.pageCount/5);
+      max = this.state.pageCount - 1;
+    } else {
+      min = direction === 'next' ? this.state.pagesRange[0]+5 : this.state.pagesRange[0]-5;
+      max = min + 4;
+    }
+
+    if (max > this.state.pageCount-1) {
+      max = this.state.pageCount-1;
+    }
+    
+    let pagesRange = [...Array(max-min+1)];
+    pagesRange = pagesRange.map((val,i) => i+min);
+    console.log(pagesRange);
+
+    this.setState({
+      pagesRange
+    },() => {
+      this.handlePageClick(!last?min:max);
+    })
+  }
+
   loadNewData () {
     var { max, drm, year, sortBy, asc } = this.state.form;
     this.dataSeries = data.ready ? data.getSeries({drm}, sortBy, asc, this.state) : {};
     this.dataArray = this.dataSeries.series[0].data
-    this.state.currentPage = 0
-    this.state.pageCount = (this.dataArray.length / this.state.form.max)
+    var currentPage = 0
+    var pageCount = Math.ceil(this.dataArray.length / this.state.form.max)
+    var pagesRange = [...Array(pageCount>=5?5:pageCount)];
+    pagesRange = pagesRange.map((val,key) => key);
+    console.log(pagesRange);
+
+    this.setState({currentPage,pageCount,pagesRange});
   }
 
   render () {
-    // //contoh pengambilan data
-    // if(data.ready !== this.state.ready) {
-    //   // console.log(data.getSeries(20, {drm: "denuvo"}, "y", false))
-    //   this.updateData();
-    // } else {
-    //   console.log("not ready")
-    // }
     if (this.dataSeries == undefined) {
       this.loadNewData( )
     }
@@ -119,7 +148,8 @@ class App extends Component {
     var dataSeries = this.dataSeries
     dataSeries.series[0].data = this.dataArray.slice (this.state.form.max * (this.state.currentPage), this.state.form.max * (this.state.currentPage + 1))
 
-    
+    var { currentPage, pageCount, pagesRange } = this.state;
+
     return (
       <div className="app">
       <Navbar color="dark" light expand="md">
@@ -157,7 +187,7 @@ class App extends Component {
           { this.state.selectedChart === 'donut' ? (<Donut></Donut>) : null}
           { this.state.selectedChart === 'updateExample' ? (<ChartUpdate></ChartUpdate>) : null}
           </div>
-          <div class="p-2"/>
+          <div className="p-2"/>
           <div className="d-flex flex-column justify-content-center align-items-center align-content-center card">
             <div className="d-flex flex-column justify-content-space-between align-content-center card-body">
               <div className="form-group">
@@ -202,9 +232,9 @@ class App extends Component {
               </div>
 
               </div>
-              <div class="slidecontainer d-flex flex-column justify-content-space-between align-content-space-between card-body">
+              <div className="slidecontainer d-flex flex-column justify-content-space-between align-content-space-between card-body">
                 <p align="center">2015 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2016 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2017 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2018</p>
-                <input  type="range" min="0" max="3" step="1" class="slider"/>
+                <input  type="range" min="0" max="3" step="1" className="slider"/>
               </div>
 
               <hr width="200"/>
@@ -218,37 +248,7 @@ class App extends Component {
                 <center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></center>
             </div>
 
-            {/* <div className="form-group">
-              <label >
-                Year
-              </label><br/>
-              <Row>
-                <Col sm={6}>
-                  <label>
-                    <input name="year" checked={this.state.form.year === '2015'} value="2015" type="checkbox" onChange={this.handleFormChange}/> 2015
-                  </label>
-                </Col>
-                <Col sm={6}>
-                  <label>
-                    <input name="year" checked={this.state.form.year === '2016'} value="2016" type="checkbox" onChange={this.handleFormChange}/> 2016
-                  </label>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={6}>
-                  <label>
-                    <input name="year" checked={this.state.form.year === '2017'} value="2017" type="checkbox" onChange={this.handleFormChange}/> 2017
-                  </label>
-                </Col>
-                <Col sm={6}>
-                  <label>
-                    <input name="year" checked={this.state.form.year === '2018'} value="2018" type="checkbox" onChange={this.handleFormChange}/> 2018
-                  </label>
-                </Col>
-              </Row>
-            </div> */}
-
-            <link href="index.css" rel="stylesheet"></link>
+            {/* <link href="index.css" rel="stylesheet"></link>
             <ReactPaginate
               previousLabel={'previous'}
               nextLabel={'next'}
@@ -262,13 +262,32 @@ class App extends Component {
               containerClassName={'pagination'}
               subContainerClassName={'pages pagination'}
               activeClassName={'active'}
-            />
-              {/* <hr/>
-              <h3 className="card-title" align="center">Average Time</h3>
-              <h1 className="card-text" align="center">20 Day(s)</h1>
-              <br/>
-              <h5 className="card-text" align="center">Games protected by:</h5>
-              <center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Cinque Terre" width="150"/></center> */}
+            /> */}
+            {
+            pageCount > 0 && <div className="p-3">
+              <Pagination aria-label="Page navigation example">
+                <PaginationItem disabled={currentPage<=0}>
+                    <PaginationLink first onClick={() => this.handlePaginationRange('previous',true,false)} />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink previous disabled={pagesRange[0]<=0} onClick={() => this.handlePaginationRange('previous')}/>
+                  </PaginationItem>
+                  {pagesRange.map((page, i) => 
+                    <PaginationItem active={page === currentPage} key={i}>
+                      <PaginationLink onClick={() => this.handlePageClick(page)}>
+                        {page + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+                  <PaginationItem>
+                    <PaginationLink next disabled={pagesRange[pagesRange.length-1]>=pageCount-1} onClick={() => this.handlePaginationRange('next')}/>
+                  </PaginationItem>
+                  <PaginationItem disabled={currentPage>=pageCount-1}>
+                    <PaginationLink last onClick={() => this.handlePaginationRange('next',false,true)} />
+                  </PaginationItem>
+                </Pagination>
+            </div>
+            }
           </div>
         </div>
       </div>
