@@ -20,9 +20,21 @@ class Home extends Component {
     })
   }
   
+  setRedirectAbout = () => {
+    this.setState({
+      redirectToAbout: true
+    })
+  }
+
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to='/app'/>
+    }
+  }
+
+  renderRedirectAbout = () => {
+    if (this.state.redirectToAbout) {
+      return <Redirect to='/about'/>
     }
   }
 
@@ -33,6 +45,7 @@ class Home extends Component {
     return (
       <div className="home">
       <Navbar color="dark" light expand="md">
+      {this.renderRedirectAbout()}
         <NavbarBrand href="/">
           <font color="white">
           CrackViz Dashboard
@@ -40,14 +53,14 @@ class Home extends Component {
         </NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-flex align-items-center">
-            <NavLink className="font-weight-bold" href="/">
+            <NavLink className="font-weight-bold">
               <font color="white">
               Home
               </font>
             </NavLink>
           </NavItem>
           <NavItem className="d-flex align-items-center">
-          <NavLink className="font-weight-bold" href="/">
+          <NavLink className="font-weight-bold" onClick={this.setRedirectAbout}>
             <font color="white">
               About
             </font>

@@ -53,12 +53,12 @@ class Loading extends Component {
       </Navbar>
       <div className="jumbotron-fluid d-flex flex-row flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center">
         <div className="jumbotron d-flex flex-column justify-content-center align-items-center align-content-center" id="load">
-        <div className="p-3"/>
+        {/* <div className="p-3"/> */}
         <h3 align="center"><font color="white">Please Wait</font></h3>
-        <img src="http://25.media.tumblr.com/tumblr_mdta50e8IX1rlbw7io1_500.gif" width="300" height="212"/>
+        <img src="/zombie.gif" width="350"/>
         <div className="p-3"/>
         <div class="spinner-border text-danger"></div>
-        <div className="p-3"/>
+        {/* <div className="p-3"/> */}
         </div>
       </div>
     </div>

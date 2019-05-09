@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Home from './Home';
 import Loading from './Loading';
+import About from './About';
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -16,6 +17,7 @@ ReactDOM.render(
     <Route exact path='/' component={Home} />
     <Route path='/app' component={App} />
     <Route path='/loading' component={Loading} />
+    <Route path='/about' component={About} />
     </div>
 </Router>, document.getElementById('root'));
 registerServiceWorker();

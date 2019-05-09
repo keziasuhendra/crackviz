@@ -24,16 +24,30 @@ class App extends Component {
   dataArray
 
   state = {
-    redirect: false
+    redirect: false,
+    redirectToAbout: false
   }
   setRedirect = () => {
     this.setState({
       redirect: true
     })
   }
+
+  setRedirectAbout = () => {
+    this.setState({
+      redirectToAbout: true
+    })
+  }
+
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to='/'/>
+    }
+  }
+
+  renderRedirectAbout = () => {
+    if (this.state.redirectToAbout) {
+      return <Redirect to='/about'/>
     }
   }
 
@@ -187,8 +201,8 @@ class App extends Component {
     return (
       <div className="app">
       <Navbar color="dark" light expand="md">
-      {this.renderRedirect()}
-        <NavbarBrand href="/">
+        <NavbarBrand onClick={this.setRedirect}>
+        {this.renderRedirect()}
           <font color="white">
           CrackViz Dashboard
           </font>
@@ -196,13 +210,15 @@ class App extends Component {
         <Nav className="ml-auto" navbar>
           <NavItem className="d-flex align-items-center">
             <NavLink className="font-weight-bold" onClick={this.setRedirect}>
+            {this.renderRedirect()}
               <font color="white">
               Home
               </font>
             </NavLink>
           </NavItem>
           <NavItem className="d-flex align-items-center">
-          <NavLink className="font-weight-bold" href="/">
+          <NavLink className="font-weight-bold" onClick={this.setRedirectAbout}>
+          {this.renderRedirectAbout()}
             <font color="white">
               About
             </font>
@@ -268,8 +284,8 @@ class App extends Component {
               <div className="p-2"/>
 
               <div className="form-group">
-                <label htmlFor="drm" id="drm">
-                  DRM
+                <label htmlFor="drm">
+                  DRM <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Replacement_character.svg/220px-Replacement_character.svg.png" width="15" height="15" id="drm"/>
                 </label>
                 <UncontrolledTooltip placement="bottom" text="left" target="drm">
                 Digital rights management (DRM) is a systematic approach to copyright protection for digital media. 
@@ -317,11 +333,11 @@ class App extends Component {
                 </div>
                 <div className="card-body">
                 <h5 className="card-title" align="center">Games protected by:</h5>
-                {this.state.form.drm === 'denuvo'? <center><a href="https://en.wikipedia.org/wiki/Denuvo" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Denuvo_vector_logo.svg/1200px-Denuvo_vector_logo.svg.png" alt="Denuvo Logo" width="150" id="logo"/></a></center> : null}
-                {this.state.form.drm === 'steam'? <center><a href="https://en.wikipedia.org/wiki/Steam_(software)" target="_blank"><img src="http://totalmayhemgames.com/wp-content/uploads/2018/09/steam-logo.png" alt="Steam Logo" width="200" id="logo"/></a></center> : null}
+                {this.state.form.drm === 'denuvo'? <center><a href="https://en.wikipedia.org/wiki/Denuvo" target="_blank"><img src="/denuvo.png" alt="Denuvo Logo" width="150" id="logo"/></a></center> : null}
+                {this.state.form.drm === 'steam'? <center><a href="https://en.wikipedia.org/wiki/Steam_(software)" target="_blank"><img src="/steam.png" alt="Steam Logo" width="200" id="logo"/></a></center> : null}
                 {/* {this.state.form.drm === 'uplay'? <center><a href="https://en.wikipedia.org/wiki/Uplay" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Uplay-logo.webp/610px-Uplay-logo.webp.png" alt="Cinque Terre" width="150"/></a></center> : null}
                 {this.state.form.drm === 'epicgames'? <center><a href="https://en.wikipedia.org/wiki/Epic_Games" target="_blank"><img src="https://cdn.wccftech.com/wp-content/uploads/2018/12/epic_games_logo_white.jpg" alt="Cinque Terre" width="200"/></a></center> : null} */}
-                {this.state.form.drm === 'origin'? <center><a href="https://en.wikipedia.org/wiki/Origin_(digital_distribution_software)" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Origin.svg/1680px-Origin.svg.png" alt="Origin Logo" width="200" id="logo"/></a></center> : null}
+                {this.state.form.drm === 'origin'? <center><a href="https://en.wikipedia.org/wiki/Origin_(digital_distribution_software)" target="_blank"><img src="/origin.png" alt="Origin Logo" width="200" id="logo"/></a></center> : null}
                 <UncontrolledTooltip placement="top" text="left" target="logo">
                 Click for more info.
                 </UncontrolledTooltip>
