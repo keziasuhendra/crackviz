@@ -2,10 +2,12 @@
   "name": "dashboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://keziasuhendra.github.io/crackviz",
   "dependencies": {
     "apexcharts": "^3.6.9",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
+    "gh-pages": "^2.0.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "react": "^16.8.6",
@@ -21,6 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }

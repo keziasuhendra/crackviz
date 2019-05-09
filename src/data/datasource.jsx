@@ -1,7 +1,7 @@
 class DataSource {
 
     constructor() {
-        this.readTextFile('/all-games(13.935 data).json');
+        this.readTextFile('all-games(13.935 data).json');
         this.ready = false
     }
     
