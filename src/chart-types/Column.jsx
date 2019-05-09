@@ -162,7 +162,7 @@ class Column extends Component {
       },
       series: [
         {
-          name: this.props.data.length > 0 ? this.props.data[0].drm : 'Unknown',
+          name: this.props.data.length > 0 ? this.toTitleCase(this.props.data[0].drm) : 'Unknown',
           data: this.props.data.map(datum => datum.y)
         }
     ],
@@ -201,10 +201,18 @@ class Column extends Component {
     return color;
   }
 
+  toTitleCase = (str) => {
+    str = str.toLowerCase().split(' ');
+    for (var i = 0; i < str.length; i++) {
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+    return str.join(' ');
+  };
+
   render() {
     return (
       <div className="column">
-        <Chart options={this.state.options} series={this.state.series} type="bar" width="1200" />
+        <Chart options={this.state.options} series={this.state.series} type="bar" width="800" />
       </div>
     );
   }

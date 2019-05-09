@@ -14,6 +14,7 @@ import { Redirect } from 'react-router-dom'
 
 import './app.css'
 import './index.css'
+import Loading from './Loading';
 
 
 import {
@@ -21,6 +22,7 @@ import {
 } from 'reactstrap';
 
 var data = new DataSource();
+var timer;
 
 class App extends Component {
 
@@ -51,16 +53,23 @@ class App extends Component {
       form: {
         max: 40,
         drm: 'denuvo',
-        year: 2015,
+        year: 0,
         sortBy: 'y',
         asc: true
       },
       averageDay: 0,
       pageCount: 0,
       currentPage: 0,
-      pagesRange: []
+      pagesRange: [],
+      isLoading: true
     }
 
+  }
+
+  componentDidMount() {
+    timer = setInterval(() => {
+      this.loadNewData();
+    }, 1000);
   }
 
   changeChart (e) {
@@ -97,9 +106,10 @@ class App extends Component {
       form[name] = value;
     }
 
-    this.loadNewData()
 
     this.setState({form},()=>{
+      this.loadNewData();
+
       this.updateChart();
     });
   }
@@ -144,7 +154,7 @@ class App extends Component {
   loadNewData () {
     var { max, drm, year, sortBy, asc } = this.state.form;
     this.dataSeries = data.ready ? data.getSeries({drm, year}, sortBy, asc, this.state) : {};
-    this.dataArray = this.dataSeries.series[0].data
+    this.dataArray = this.dataSeries.series ? this.dataSeries.series[0].data : [];
     var currentPage = 0
     var pageCount = Math.ceil(this.dataArray.length / this.state.form.max)
     var pagesRange = [...Array(pageCount>=5?5:pageCount)];
@@ -157,19 +167,27 @@ class App extends Component {
     }
     var averageDay = sum / this.dataArray.length
 
-    this.setState({currentPage,pageCount,pagesRange,averageDay});
+    this.setState({currentPage,pageCount,pagesRange,averageDay},() => {
+      if (data.ready && this.state.isLoading) {
+        clearInterval(timer);
+        this.setState({isLoading: false});
+      } 
+    });
   }
 
   render () {
-    if (this.dataSeries == undefined) {
-      this.loadNewData( )
-    }
+    // if (this.dataSeries == undefined) {
+    //   this.loadNewData( )
+    // }
 
-    var dataSeries = this.dataSeries
-    dataSeries.series[0].data = this.dataArray.slice (this.state.form.max * (this.state.currentPage), this.state.form.max * (this.state.currentPage + 1))
+    // var dataSeries = this.dataSeries
+    var dataSeries = this.dataArray ? this.dataArray.slice (this.state.form.max * (this.state.currentPage), this.state.form.max * (this.state.currentPage + 1)) : [];
 
     var { currentPage, pageCount, pagesRange } = this.state;
 
+    if (this.state.isLoading) {
+      return(<Loading/>);
+    }
     return (
       <div className="app">
       <Navbar color="dark" light expand="md">
@@ -199,7 +217,8 @@ class App extends Component {
       <div className="container-fluid" id="app-bg">
         <div className="d-flex flex-row flex-wrap justify-content-center position-absolute w-100 h-100 align-items-center align-content-center ">
           <div>
-          { this.state.selectedChart === 'column' ? (<Column data = {dataSeries.series? dataSeries.series[0].data : []}></Column>) : null}
+          {/* { this.state.selectedChart === 'column' ? (<Column data = {dataSeries.series? dataSeries.series[0].data : []}></Column>) : null} */}
+          { this.state.selectedChart === 'column' ? (<Column data = {dataSeries}></Column>) : null}
           </div>
           <div className="p-2"/>
           <div className="d-flex flex-column justify-content-center align-items-center align-content-center card">
