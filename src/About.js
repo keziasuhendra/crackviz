@@ -12,17 +12,29 @@ var data = new DataSource();
 class Home extends Component {
   state = {
     redirect: false,
-    redirectToAbout: false
+    redirectToApp: false
   }
   setRedirect = () => {
     this.setState({
       redirect: true
     })
   }
+
+  setRedirectApp = () => {
+    this.setState({
+      redirectToApp: true
+    })
+  }
   
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to='/'/>
+    }
+  }
+
+  renderRedirectApp = () => {
+    if (this.state.redirectToApp) {
+      return <Redirect to='/app'/>
     }
   }
 
@@ -33,8 +45,9 @@ class Home extends Component {
     return (
       <div className="home">
       <Navbar color="dark" light expand="md">
-      {this.renderRedirect()}
-        <NavbarBrand onClick={this.setRedirect}>
+      {this.renderRedirectApp()}
+        <NavbarBrand onClick={this.setRedirectApp}>
+        <img src="/icon.png" className="rounded" width="70" height="55"/>
           <font color="white">
           CrackViz Dashboard
           </font>
@@ -42,17 +55,22 @@ class Home extends Component {
         <Nav className="ml-auto" navbar>
           <NavItem className="d-flex align-items-center">
             <NavLink className="font-weight-bold" onClick={this.setRedirect}>
+            {this.renderRedirect()}
+            <img src="/home.png" width="40" height="40"/>
               <font color="white">
               Home
               </font>
             </NavLink>
           </NavItem>
           <NavItem className="d-flex align-items-center">
+          <div className="p-2"/>
           <NavLink className="font-weight-bold" href="/">
+          <img src="/about.png" width="40" height="40" />
             <font color="white">
               About
             </font>
           </NavLink>
+          <div className="p-2"/>
           </NavItem>
         </Nav>
       </Navbar>

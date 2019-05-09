@@ -30,6 +30,7 @@ class Loading extends Component {
       <div className="home">
       <Navbar color="dark" light expand="md">
         <NavbarBrand href="/">
+        <img src="/icon.png" className="rounded" width="70" height="55"/>
           <font color="white">
           CrackViz Dashboard
           </font>
@@ -37,17 +38,21 @@ class Loading extends Component {
         <Nav className="ml-auto" navbar>
           <NavItem className="d-flex align-items-center">
             <NavLink className="font-weight-bold" href="/">
+            <img src="/home.png" width="40" height="40"/>
               <font color="white">
               Home
               </font>
             </NavLink>
           </NavItem>
+          <div className="p-2"/>
           <NavItem className="d-flex align-items-center">
           <NavLink className="font-weight-bold" href="/">
+          <img src="/about.png" width="40" height="40"/>
             <font color="white">
               About
             </font>
           </NavLink>
+          <div className="p-2"/>
           </NavItem>
         </Nav>
       </Navbar>

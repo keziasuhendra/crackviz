@@ -46,7 +46,8 @@ class Home extends Component {
       <div className="home">
       <Navbar color="dark" light expand="md">
       {this.renderRedirectAbout()}
-        <NavbarBrand href="/">
+        <NavbarBrand onClick={this.setRedirect}>
+        <img src="/icon.png" className="rounded" width="70" height="55"/>
           <font color="white">
           CrackViz Dashboard
           </font>
@@ -54,17 +55,21 @@ class Home extends Component {
         <Nav className="ml-auto" navbar>
           <NavItem className="d-flex align-items-center">
             <NavLink className="font-weight-bold">
+            <img src="/home.png" width="40" height="40"/>
               <font color="white">
               Home
               </font>
             </NavLink>
           </NavItem>
+          <div className="p-2"/>
           <NavItem className="d-flex align-items-center">
           <NavLink className="font-weight-bold" onClick={this.setRedirectAbout}>
+          <img src="/about.png" width="40" height="40"/>
             <font color="white">
               About
             </font>
           </NavLink>
+          <div className="p-2"/>
           </NavItem>
         </Nav>
       </Navbar>

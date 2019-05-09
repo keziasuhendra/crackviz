@@ -201,8 +201,8 @@ class App extends Component {
     return (
       <div className="app">
       <Navbar color="dark" light expand="md">
-        <NavbarBrand onClick={this.setRedirect}>
-        {this.renderRedirect()}
+        <NavbarBrand>
+          <img src="/icon.png" className="rounded" width="70" height="55"/>
           <font color="white">
           CrackViz Dashboard
           </font>
@@ -211,18 +211,23 @@ class App extends Component {
           <NavItem className="d-flex align-items-center">
             <NavLink className="font-weight-bold" onClick={this.setRedirect}>
             {this.renderRedirect()}
+            <img src="/home.png" width="40" height="40"/>
+            {this.renderRedirect()}
               <font color="white">
               Home
               </font>
             </NavLink>
           </NavItem>
+          <div className="p-2"/>
           <NavItem className="d-flex align-items-center">
           <NavLink className="font-weight-bold" onClick={this.setRedirectAbout}>
+          <img src="/about.png" width="40" height="40"/>
           {this.renderRedirectAbout()}
             <font color="white">
               About
             </font>
           </NavLink>
+          <div className="p-2"/>
           </NavItem>
         </Nav>
       </Navbar>
