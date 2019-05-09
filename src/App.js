@@ -302,7 +302,7 @@ class App extends Component {
                   <option value="steam" >Steam</option>
                   {/* <option value="uplay" >Uplay</option>
                   <option value="epicgames" >Epic Games</option> */}
-                  <option value="origin" > Origin</option>
+                  {/* <option value="origin" > Origin</option> */}
                 </select>
               </div>
 
@@ -342,7 +342,7 @@ class App extends Component {
                 {this.state.form.drm === 'steam'? <center><a href="https://en.wikipedia.org/wiki/Steam_(software)" target="_blank"><img src="/steam.png" alt="Steam Logo" width="200" id="logo"/></a></center> : null}
                 {/* {this.state.form.drm === 'uplay'? <center><a href="https://en.wikipedia.org/wiki/Uplay" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Uplay-logo.webp/610px-Uplay-logo.webp.png" alt="Cinque Terre" width="150"/></a></center> : null}
                 {this.state.form.drm === 'epicgames'? <center><a href="https://en.wikipedia.org/wiki/Epic_Games" target="_blank"><img src="https://cdn.wccftech.com/wp-content/uploads/2018/12/epic_games_logo_white.jpg" alt="Cinque Terre" width="200"/></a></center> : null} */}
-                {this.state.form.drm === 'origin'? <center><a href="https://en.wikipedia.org/wiki/Origin_(digital_distribution_software)" target="_blank"><img src="/origin.png" alt="Origin Logo" width="200" id="logo"/></a></center> : null}
+                {/* {this.state.form.drm === 'origin'? <center><a href="https://en.wikipedia.org/wiki/Origin_(digital_distribution_software)" target="_blank"><img src="/origin.png" alt="Origin Logo" width="200" id="logo"/></a></center> : null} */}
                 <UncontrolledTooltip placement="top" text="left" target="logo">
                 Click for more info.
                 </UncontrolledTooltip>
