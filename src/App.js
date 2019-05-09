@@ -2,13 +2,7 @@ import React, { Component } from 'react'
 // import ReactPaginate from 'react-paginate';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-import Area from './chart-types/Area'
-import Bar from './chart-types/Bar'
 import Column from './chart-types/Column'
-import Line from './chart-types/Line'
-import Donut from './chart-types/Donut'
-import RadialBar from './chart-types/RadialBar'
-import ChartUpdate from './ChartUpdate'
 import DataSource from './data/datasource'
 import { Redirect } from 'react-router-dom'
 
@@ -57,6 +51,7 @@ class App extends Component {
       },
       averageDay: 0,
       pageCount: 0,
+      dataCount: -1,
       currentPage: 0,
       pagesRange: []
     }
@@ -156,7 +151,7 @@ class App extends Component {
       sum = sum + this.dataArray[i]["y"]
     }
     var averageDay = sum / this.dataArray.length
-
+    this.state.dataCount = this.dataArray.length
     this.setState({currentPage,pageCount,pagesRange,averageDay});
   }
 
@@ -289,7 +284,12 @@ class App extends Component {
                 
                 <div className="card-body">
                 <h3 className="card-title" align="center">Average Time</h3>
-                <h1 className="card-text" align="center">{Math.round(this.state.averageDay * 100)/100} Day(s)</h1>
+                {
+                  this.state.dataCount > 0 ?
+                  <h1 className="card-text" align="center">{Math.round(this.state.averageDay * 100)/100} Day(s)</h1>
+                  : <h1 className="card-text" align="center">No Data</h1>
+                }
+                
                 </div>
                 <div className="card-body">
                 <h5 className="card-title" align="center">Games protected by:</h5>
