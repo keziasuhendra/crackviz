@@ -204,7 +204,7 @@ class Column extends Component {
   render() {
     return (
       <div className="column">
-        <Chart options={this.state.options} series={this.state.series} type="bar" width="1200" />
+        <Chart options={this.state.options} series={this.state.series} type="bar" width="1000" />
       </div>
     );
   }

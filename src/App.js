@@ -210,7 +210,7 @@ class App extends Component {
                 </label><div class="p-1"/>
                 <select id="lang" name="sortBy" onChange={this.handleFormChange}>
                   <option value="y" >Time to Crack</option>
-                  <option value="ReleaseDateMillis" >Release Date</option>
+                  <option value="releaseDateMilis" >Release Date</option>
                   <option value="x" >Title</option>
                 </select>
               </div>
